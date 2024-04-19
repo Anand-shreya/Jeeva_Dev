@@ -53,14 +53,23 @@ app.get("/audio", async (req, res) => {
     }
     // Send the audio data as a response
     res.set("Content-Type", "audio/mpeg"); // Set appropriate content type
-    console.log(audio[0].data);
-    const base64Data = Buffer.from(audio[0].Data).toString("base64");
+    // console.log(audio[0].Data);
+
+    let len = audio.length;
+    let arr = [];
+    for (let i = 0; i < len; i++) {
+      const base64Data = Buffer.from(audio[i].Data).toString("base64");
+      arr.push({
+        audio: base64Data,
+        Dname: audio[i].Dname,
+        Pname: audio[i].Pname,
+        Age: audio[i].Age,
+        Date: audio[i].Date,
+      });
+    }
+    console.log(arr);
     res.send({
-      audio: base64Data,
-      Dname: audio[0].Dname,
-      Pname: audio[0].Pname,
-      Age: audio[0].Age,
-      Date: audio[0].Date,
+      arr,
     });
   } catch (error) {
     console.error(error);
