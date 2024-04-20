@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Rec from "./Rec";
+import styled from "styled-components";
+
+const Ul = styled.ul`
+  margin:10px;
+`;
 
 const SingleRec = (props) => {
   const [audioData, setAudioData] = useState([]);
@@ -22,31 +27,21 @@ const SingleRec = (props) => {
 
   return (
     <div>
-      <ul>
+      
         {
         audioData &&
         audioData.map((item, index) => (
-          <li key={index}>
-            <div>
-              <strong>Doctor Name:</strong> {item.Dname}
-            </div>
-            <div>
-              <strong>Patient Name:</strong> {item.Pname}
-            </div>
-            <div>
-              <strong>Age:</strong> {item.Age}
-            </div>
-            <div>
-              <strong>Date:</strong> {item.Date}
-            </div>
-            {item.audio && (
-              <audio controls>
-                <source src={`data:audio/mpeg;base64,${item.audio}`} type="audio/mpeg" />
-              </audio>
-            )}
-          </li>
+         <Ul>
+           <Rec
+          Dname =  {item.Dname}
+          Pname =  {item.Pname}
+          Age = {item.Age}
+          Date = {item.Date}
+          audio = {item.audio}
+          ></Rec>
+          </Ul>
         ))}
-      </ul>
+      
 
     </div>
   );
