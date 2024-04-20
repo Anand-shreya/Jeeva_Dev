@@ -6,13 +6,11 @@ const cors = require("cors");
 
 const app = express();
 const port = 5000;
+
 app.use(cors());
+
 mongoose.connect(
-  "mongodb+srv://shreyaanand1501:test1@cluster0.9ehbpse.mongodb.net/",
-  {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  }
+  "mongodb+srv://shreyaanand1501:test1@cluster0.9ehbpse.mongodb.net/"
 );
 
 const storage = multer.memoryStorage();
@@ -20,10 +18,12 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 app.post("/upload", upload.single("audio"), async (req, res) => {
-  console.log(req);
+  // console.log(req);
+
   try {
     const { Dname, Pname, Age, Date } = req.body;
-    console.log(Dname);
+    // console.log(Dname);
+
     const Newdata = new Model({
       Dname: Dname,
       Pname: Pname,
@@ -43,23 +43,22 @@ app.post("/upload", upload.single("audio"), async (req, res) => {
   }
 });
 
-app.get("/audio", async (req, res) => {
+app.get("/allData", async (req, res) => {
   try {
     // console.log(id)
     const audio = await Model.find();
-    console.log(audio);
+    // console.log(audio);
     if (!audio) {
       return res.status(404).send("Audio not found");
     }
-    // Send the audio data as a response
-    res.set("Content-Type", "audio/mpeg"); // Set appropriate content type
-    // console.log(audio[0].Data);
+
+    res.set("Content-Type", "audio/mpeg"); 
 
     let len = audio.length;
-    let arr = [];
+    let AllRecords = [];
     for (let i = 0; i < len; i++) {
       const base64Data = Buffer.from(audio[i].Data).toString("base64");
-      arr.push({
+      AllRecords.push({
         audio: base64Data,
         Dname: audio[i].Dname,
         Pname: audio[i].Pname,
@@ -67,9 +66,10 @@ app.get("/audio", async (req, res) => {
         Date: audio[i].Date,
       });
     }
-    console.log(arr);
+
+    console.log(AllRecords);
     res.send({
-      arr,
+      AllRecords
     });
   } catch (error) {
     console.error(error);

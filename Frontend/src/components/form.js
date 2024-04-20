@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Form = ({DateUpdate}) => {
+const Form = ({ DataUpdate }) => {
+
   const [formData, setFormData] = useState({
     Dname: "",
     Pname: "",
@@ -9,8 +10,8 @@ const Form = ({DateUpdate}) => {
     Date: "",
   });
 
-  //   const [forms, setForms] = useState([]);
   const [file, setFile] = useState(null);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -24,40 +25,40 @@ const Form = ({DateUpdate}) => {
 
     setFormData({ ...formData, ["audio"]: file });
     // console.log(formData);
-    console.log(formData);
     try {
       await axios.post("http://localhost:5000/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+
       alert("Audio uploaded successfully");
+
       setFormData({
         Dname: "",
         Pname: "",
         Age: "",
         Date: "",
-      })
-      setFile(null)
-      DateUpdate(formData)
+      });
+      setFile(null);
+      DataUpdate(formData);
+
     } catch (error) {
       console.error("Error uploading audio:", error);
       alert("Error uploading audio");
     }
-    
-    
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="Form">
         <input
           type="text"
           name="Dname"
           value={formData.Dname}
           onChange={handleChange}
           placeholder="Doctor's Name"
-          required = "true"
+          required="true"
         />
         <input
           type="text"
@@ -65,7 +66,7 @@ const Form = ({DateUpdate}) => {
           value={formData.Pname}
           onChange={handleChange}
           placeholder="Patient's Name"
-          required = "true"
+          required="true"
         />
         <input
           type="number"
@@ -73,7 +74,7 @@ const Form = ({DateUpdate}) => {
           value={formData.Age}
           onChange={handleChange}
           placeholder="Patient's age"
-          required = "true"
+          required="true"
         />
         <input
           type="Date"
@@ -81,14 +82,14 @@ const Form = ({DateUpdate}) => {
           value={formData.Date}
           onChange={handleChange}
           placeholder="Date of recording"
-          required = "true"
+          required="true"
         />
         <input
           type="file"
           name="audio"
           onChange={handleFileChange}
           placeholder="Recording"
-          required = "true"
+          required="true"
         />
         <button type="submit">Submit</button>
       </form>

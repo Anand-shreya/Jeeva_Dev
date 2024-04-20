@@ -3,16 +3,17 @@ import SingleRec from "./components/singleRec";
 import { useState } from "react";
 
 function App() {
-  const[isUpdate, setIsUpdate] = useState("");
-  function handleUpdate(data){
-  setIsUpdate(data);
-  };
+  // To auto Update the table content when a new record is entered
+  const [isUpdate, setIsUpdate] = useState("");
+  function handleUpdate(data) {
+    setIsUpdate(data);
+  }
 
   return (
     <div>
-     {/* Hare Krishn!!! */}
-     <Form DateUpdate = {handleUpdate}></Form>
-     <SingleRec updated = {isUpdate}></SingleRec>
+      {/* Hare Krishn!!! */}
+      <Form DataUpdate={handleUpdate}></Form>
+      <SingleRec updated={isUpdate}></SingleRec>
     </div>
   );
 }
