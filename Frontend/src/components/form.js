@@ -77,7 +77,8 @@ const Form = ({ DataUpdate }) => {
     setFormData({ ...formData, ["audio"]: file });
     // console.log(formData);
     try {
-      await axios.post("http://localhost:5000/upload", formData, {
+      // await axios.post("http://localhost:5000/upload", formData, {
+      await axios.post("https://jeeva-dev.onrender.com/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

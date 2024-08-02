@@ -14,7 +14,8 @@ const SingleRec = (props) => {
   useEffect(() => {
     const fetchAudio = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/allData");
+        // const response = await axios.get("http://localhost:5000/allData");
+        const response = await axios.get("https://jeeva-dev.onrender.com/allData");
    
         setAudioData(response.data.AllRecords);
       } catch (error) {
